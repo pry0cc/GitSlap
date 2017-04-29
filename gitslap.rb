@@ -67,8 +67,40 @@ for user in results
 	end
 end
 
-for email in emails
-	if email.to_s =~ /#{username}/
-		puts email
+found = []
+
+width = 0
+
+for email in emails.uniq
+	if email.to_s.length > width
+		width = email.to_s.length
+	end
+	if email.to_s.downcase =~ /#{username.downcase}/
+		found.push(email)
+		emails.delete(email)
 	end
 end
+
+top_line = ""
+bottom_line = ""
+
+for i in 0..((width - 15) / 2)
+	top_line += "-"
+	bottom_line += "-"
+end
+
+top_line += " High Priority "
+bottom_line += "---------------"
+
+for i in 0..((width - 15) / 2)
+	top_line += "-"
+	bottom_line += "-"
+end
+
+if found.length > 0
+	puts top_line
+	puts found
+	puts bottom_line
+end
+
+puts emails
