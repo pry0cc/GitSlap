@@ -68,7 +68,7 @@ for user in results
 end
 
 for email in emails
-	if email["name"] =~ /#{username}/
+	if email.to_s =~ /#{username}/
 		puts email
 	end
 end
